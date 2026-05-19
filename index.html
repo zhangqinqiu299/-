@@ -13,29 +13,88 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 30px;
             font-size: 28px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
 
         .input-section {
@@ -60,14 +119,17 @@
         .input-group input {
             padding: 12px 16px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background: #fafafa;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
         }
 
         .time-inputs {
@@ -83,38 +145,61 @@
             width: 100%;
             padding: 14px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
         }
 
         .btn-set {
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-set:hover {
-            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
 
         .btn-pause {
-            background-color: #ff9800;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
             color: white;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
         }
 
         .btn-pause:hover {
-            background-color: #f57c00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
         }
 
         .btn-reset {
-            background-color: #f44336;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
         }
 
         .btn-reset:hover {
-            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
         }
 
         .btn-group {
@@ -134,55 +219,135 @@
 
         .countdown-section.show {
             display: block;
+            animation: fadeInUp 0.5s ease-out;
         }
 
         .countdown {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
+            gap: 10px;
         }
 
         .countdown-item {
             text-align: center;
-            background: linear-gradient(145deg, #f0f0f0, #ffffff);
-            padding: 20px;
-            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 25px 15px;
+            border-radius: 20px;
             min-width: 80px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
         }
 
         .countdown-number {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
-            color: #333;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1.2;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-number.change {
+            animation: pulse 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
         }
 
         .countdown-label {
             font-size: 12px;
             color: #888;
-            margin-top: 5px;
+            margin-top: 8px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 500;
         }
 
         .status-message {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
             color: #666;
-            font-size: 14px;
+            font-size: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
         }
 
         .status-message.running {
-            color: #4CAF50;
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
         }
 
         .status-message.paused {
-            color: #ff9800;
+            color: #f5576c;
+            background: rgba(245, 87, 108, 0.1);
+            border-left: 4px solid #f5576c;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .countdown {
+                gap: 5px;
+            }
+            
+            .countdown-item {
+                min-width: 65px;
+                padding: 18px 10px;
+            }
+            
+            .countdown-number {
+                font-size: 30px;
+            }
+            
+            .countdown-label {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .countdown-item {
+                min-width: 55px;
+                padding: 15px 5px;
+            }
+            
+            .countdown-number {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
         <h1>📚 考试倒计时</h1>
         
@@ -232,6 +397,7 @@
     </div>
 
     <script>
+        const particlesContainer = document.getElementById('particles');
         const examDateInput = document.getElementById('examDate');
         const examHourInput = document.getElementById('examHour');
         const examMinuteInput = document.getElementById('examMinute');
@@ -249,6 +415,20 @@
         let examTime = null;
         let isPaused = false;
         let remainingTime = 0;
+        let lastValues = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+        function createParticles() {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.width = (2 + Math.random() * 4) + 'px';
+                particle.style.height = particle.style.width;
+                particlesContainer.appendChild(particle);
+            }
+        }
 
         function updateCountdown() {
             if (isPaused) return;
@@ -273,10 +453,22 @@
         }
 
         function updateDisplay(days, hours, minutes, seconds) {
-            daysEl.textContent = String(days).padStart(2, '0');
-            hoursEl.textContent = String(hours).padStart(2, '0');
-            minutesEl.textContent = String(minutes).padStart(2, '0');
-            secondsEl.textContent = String(seconds).padStart(2, '0');
+            animateNumber(daysEl, days, lastValues.days);
+            animateNumber(hoursEl, hours, lastValues.hours);
+            animateNumber(minutesEl, minutes, lastValues.minutes);
+            animateNumber(secondsEl, seconds, lastValues.seconds);
+            
+            lastValues = { days, hours, minutes, seconds };
+        }
+
+        function animateNumber(element, newValue, oldValue) {
+            if (newValue !== oldValue) {
+                element.textContent = String(newValue).padStart(2, '0');
+                element.classList.add('change');
+                setTimeout(() => {
+                    element.classList.remove('change');
+                }, 300);
+            }
         }
 
         btnSet.addEventListener('click', () => {
@@ -331,8 +523,11 @@
             examMinuteInput.value = '';
             isPaused = false;
             examTime = null;
+            lastValues = { days: 0, hours: 0, minutes: 0, seconds: 0 };
             updateDisplay(0, 0, 0, 0);
         });
+
+        createParticles();
     </script>
 </body>
 </html>
