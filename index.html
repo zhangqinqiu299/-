@@ -13,64 +13,22 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: float 10s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-50px) translateX(20px);
-                opacity: 0.3;
-            }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
+            background: white;
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
-            position: relative;
-            z-index: 1;
         }
 
         h1 {
@@ -78,11 +36,6 @@
             color: #333;
             margin-bottom: 30px;
             font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .input-section {
@@ -105,24 +58,21 @@
         }
 
         .input-group input {
-            padding: 14px 18px;
+            padding: 12px 16px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 16px;
-            transition: all 0.3s;
-            background: #f8f9fa;
+            transition: border-color 0.3s;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #4CAF50;
         }
 
         .time-inputs {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         .time-inputs .input-group {
@@ -131,69 +81,46 @@
 
         button {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        button:hover::before {
-            left: 100%;
         }
 
         .btn-set {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: #4CAF50;
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-set:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            background-color: #45a049;
         }
 
         .btn-pause {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+            background-color: #ff9800;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
         }
 
         .btn-pause:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
+            background-color: #f57c00;
         }
 
         .btn-reset {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
+            background-color: #f44336;
             color: white;
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
         }
 
         .btn-reset:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.6);
+            background-color: #d32f2f;
         }
 
         .btn-group {
             display: flex;
-            gap: 12px;
-            margin-top: 12px;
+            gap: 10px;
+            margin-top: 10px;
         }
 
         .btn-group button {
@@ -213,74 +140,158 @@
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
-            gap: 10px;
         }
 
-        .countdown-item {
-            text-align: center;
-            background: linear-gradient(145deg, #f8f9fa, #ffffff);
-            padding: 25px 15px;
-            border-radius: 20px;
+        .flip-card {
+            perspective: 400px;
             min-width: 80px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .flip-card-inner {
             position: relative;
-            overflow: hidden;
+            width: 100%;
+            height: 80px;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
 
-        .countdown-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        .flip-card-inner.flipping {
+            animation: flip 0.6s ease-in-out;
         }
 
-        .countdown-number {
+        @keyframes flip {
+            0% { transform: rotateX(0deg); }
+            50% { transform: rotateX(-90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .flip-card-back {
+            transform: rotateX(180deg);
+        }
+
+        .flip-card-inner.flipping .flip-card-front {
+            animation: flipFront 0.6s ease-in-out;
+        }
+
+        .flip-card-inner.flipping .flip-card-back {
+            animation: flipBack 0.6s ease-in-out;
+        }
+
+        @keyframes flipFront {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(-90deg); }
+        }
+
+        @keyframes flipBack {
+            0% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        .flip-number {
             font-size: 42px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #333;
             line-height: 1.2;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
         }
 
         .countdown-label {
-            font-size: 13px;
+            text-align: center;
+            font-size: 12px;
             color: #888;
-            margin-top: 8px;
+            margin-top: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .status-message {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 20px;
             color: #666;
-            font-size: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            background: #f8f9fa;
+            font-size: 14px;
         }
 
         .status-message.running {
             color: #4CAF50;
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.3);
         }
 
         .status-message.paused {
             color: #ff9800;
-            background: rgba(255, 152, 0, 0.1);
-            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            color: #f44336;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
         }
 
         @media (max-width: 480px) {
@@ -292,27 +303,21 @@
                 font-size: 22px;
             }
             
-            .countdown {
-                gap: 5px;
+            .flip-card {
+                min-width: 60px;
             }
             
-            .countdown-item {
-                padding: 18px 10px;
-                min-width: 65px;
+            .flip-card-inner {
+                height: 65px;
             }
             
-            .countdown-number {
-                font-size: 30px;
-            }
-            
-            .countdown-label {
-                font-size: 11px;
+            .flip-number {
+                font-size: 32px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
     <div class="container">
         <h1>📚 考试倒计时</h1>
         
@@ -336,20 +341,48 @@
 
         <div class="countdown-section" id="countdownSection">
             <div class="countdown">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
+                <div class="flip-card">
+                    <div class="flip-card-inner" id="daysCard">
+                        <div class="flip-card-front">
+                            <span class="flip-number" id="daysFront">00</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <span class="flip-number" id="daysBack">00</span>
+                        </div>
+                    </div>
                     <div class="countdown-label">天</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
+                <div class="flip-card">
+                    <div class="flip-card-inner" id="hoursCard">
+                        <div class="flip-card-front">
+                            <span class="flip-number" id="hoursFront">00</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <span class="flip-number" id="hoursBack">00</span>
+                        </div>
+                    </div>
                     <div class="countdown-label">时</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
+                <div class="flip-card">
+                    <div class="flip-card-inner" id="minutesCard">
+                        <div class="flip-card-front">
+                            <span class="flip-number" id="minutesFront">00</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <span class="flip-number" id="minutesBack">00</span>
+                        </div>
+                    </div>
                     <div class="countdown-label">分</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
+                <div class="flip-card">
+                    <div class="flip-card-inner" id="secondsCard">
+                        <div class="flip-card-front">
+                            <span class="flip-number" id="secondsFront">00</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <span class="flip-number" id="secondsBack">00</span>
+                        </div>
+                    </div>
                     <div class="countdown-label">秒</div>
                 </div>
             </div>
@@ -361,6 +394,14 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <h2>🎉 考试时间到！</h2>
+            <p>准备好迎接挑战了吗？祝你考试顺利！</p>
+            <button id="btnCloseModal">确定</button>
+        </div>
+    </div>
+
     <script>
         const examDateInput = document.getElementById('examDate');
         const examHourInput = document.getElementById('examHour');
@@ -369,36 +410,99 @@
         const btnPause = document.getElementById('btnPause');
         const btnReset = document.getElementById('btnReset');
         const countdownSection = document.getElementById('countdownSection');
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
         const statusMessage = document.getElementById('statusMessage');
-        const particlesContainer = document.getElementById('particles');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const btnCloseModal = document.getElementById('btnCloseModal');
+
+        const flipCards = {
+            days: {
+                card: document.getElementById('daysCard'),
+                front: document.getElementById('daysFront'),
+                back: document.getElementById('daysBack')
+            },
+            hours: {
+                card: document.getElementById('hoursCard'),
+                front: document.getElementById('hoursFront'),
+                back: document.getElementById('hoursBack')
+            },
+            minutes: {
+                card: document.getElementById('minutesCard'),
+                front: document.getElementById('minutesFront'),
+                back: document.getElementById('minutesBack')
+            },
+            seconds: {
+                card: document.getElementById('secondsCard'),
+                front: document.getElementById('secondsFront'),
+                back: document.getElementById('secondsBack')
+            }
+        };
 
         let countdownInterval = null;
         let examTime = null;
         let isPaused = false;
         let remainingTime = 0;
+        let lastTime = 0;
+        const audioContext = typeof AudioContext !== 'undefined' ? new AudioContext() : null;
 
-        function createParticles() {
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-                particle.style.width = (2 + Math.random() * 4) + 'px';
-                particle.style.height = particle.style.width;
-                particlesContainer.appendChild(particle);
-            }
+        function playNotificationSound() {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.2);
+            oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.4);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.6);
+        }
+
+        function showEndModal() {
+            modalOverlay.classList.add('show');
+            playNotificationSound();
+        }
+
+        function flipCard(cardKey, newValue) {
+            const card = flipCards[cardKey];
+            if (card.front.textContent === newValue) return;
+
+            card.back.textContent = newValue;
+            card.card.classList.add('flipping');
+
+            setTimeout(() => {
+                card.front.textContent = newValue;
+                card.card.classList.remove('flipping');
+            }, 300);
+        }
+
+        function updateDisplay(days, hours, minutes, seconds) {
+            const daysStr = String(days).padStart(2, '0');
+            const hoursStr = String(hours).padStart(2, '0');
+            const minutesStr = String(minutes).padStart(2, '0');
+            const secondsStr = String(seconds).padStart(2, '0');
+
+            flipCard('days', daysStr);
+            flipCard('hours', hoursStr);
+            flipCard('minutes', minutesStr);
+            flipCard('seconds', secondsStr);
         }
 
         function updateCountdown() {
             if (isPaused) return;
 
             const now = Date.now();
+            
+            const timeDiff = now - lastTime;
+            if (timeDiff < 950) return;
+            
+            lastTime = now;
             remainingTime = examTime - now;
 
             if (remainingTime <= 0) {
@@ -406,6 +510,7 @@
                 updateDisplay(0, 0, 0, 0);
                 statusMessage.textContent = '考试时间到！';
                 statusMessage.className = 'status-message';
+                showEndModal();
                 return;
             }
 
@@ -415,25 +520,6 @@
             const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
             updateDisplay(days, hours, minutes, seconds);
-        }
-
-        function updateDisplay(days, hours, minutes, seconds) {
-            animateNumber(daysEl, String(days).padStart(2, '0'));
-            animateNumber(hoursEl, String(hours).padStart(2, '0'));
-            animateNumber(minutesEl, String(minutes).padStart(2, '0'));
-            animateNumber(secondsEl, String(seconds).padStart(2, '0'));
-        }
-
-        function animateNumber(element, newValue) {
-            if (element.textContent !== newValue) {
-                element.style.transform = 'scale(1.2)';
-                element.style.opacity = '0.7';
-                setTimeout(() => {
-                    element.textContent = newValue;
-                    element.style.transform = 'scale(1)';
-                    element.style.opacity = '1';
-                }, 100);
-            }
         }
 
         btnSet.addEventListener('click', () => {
@@ -457,6 +543,7 @@
 
             isPaused = false;
             remainingTime = examTime - now;
+            lastTime = now;
             
             countdownSection.classList.add('show');
             statusMessage.textContent = '倒计时运行中...';
@@ -464,7 +551,7 @@
             
             clearInterval(countdownInterval);
             updateCountdown();
-            countdownInterval = setInterval(updateCountdown, 1000);
+            countdownInterval = setInterval(updateCountdown, 100);
         });
 
         btnPause.addEventListener('click', () => {
@@ -474,6 +561,7 @@
                 statusMessage.textContent = '倒计时已暂停';
                 statusMessage.className = 'status-message paused';
             } else {
+                lastTime = Date.now();
                 btnPause.textContent = '暂停';
                 statusMessage.textContent = '倒计时运行中...';
                 statusMessage.className = 'status-message running';
@@ -483,6 +571,7 @@
         btnReset.addEventListener('click', () => {
             clearInterval(countdownInterval);
             countdownSection.classList.remove('show');
+            modalOverlay.classList.remove('show');
             examDateInput.value = '';
             examHourInput.value = '';
             examMinuteInput.value = '';
@@ -491,7 +580,9 @@
             updateDisplay(0, 0, 0, 0);
         });
 
-        createParticles();
+        btnCloseModal.addEventListener('click', () => {
+            modalOverlay.classList.remove('show');
+        });
     </script>
 </body>
 </html>
