@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试倒计时小工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .time-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .time-inputs .input-group {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-set {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-set:hover {
+            background-color: #45a049;
+        }
+
+        .btn-pause {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-pause:hover {
+            background-color: #f57c00;
+        }
+
+        .btn-reset {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-group button {
+            flex: 1;
+        }
+
+        .countdown-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .countdown-section.show {
+            display: block;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .countdown-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-message {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .status-message.running {
+            color: #4CAF50;
+        }
+
+        .status-message.paused {
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 考试倒计时</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="examDate">考试日期</label>
+                <input type="date" id="examDate" required>
+            </div>
+            <div class="time-inputs">
+                <div class="input-group">
+                    <label for="examHour">小时</label>
+                    <input type="number" id="examHour" min="0" max="23" placeholder="0-23" required>
+                </div>
+                <div class="input-group">
+                    <label for="examMinute">分钟</label>
+                    <input type="number" id="examMinute" min="0" max="59" placeholder="0-59" required>
+                </div>
+            </div>
+            <button class="btn-set" id="btnSet">开始倒计时</button>
+        </div>
+
+        <div class="countdown-section" id="countdownSection">
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">时</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-pause" id="btnPause">暂停</button>
+                <button class="btn-reset" id="btnReset">重置</button>
+            </div>
+            <div class="status-message" id="statusMessage">倒计时运行中...</div>
+        </div>
+    </div>
+
+    <script>
+        const examDateInput = document.getElementById('examDate');
+        const examHourInput = document.getElementById('examHour');
+        const examMinuteInput = document.getElementById('examMinute');
+        const btnSet = document.getElementById('btnSet');
+        const btnPause = document.getElementById('btnPause');
+        const btnReset = document.getElementById('btnReset');
+        const countdownSection = document.getElementById('countdownSection');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const statusMessage = document.getElementById('statusMessage');
+
+        let countdownInterval = null;
+        let examTime = null;
+        let isPaused = false;
+        let remainingTime = 0;
+
+        function updateCountdown() {
+            if (isPaused) return;
+
+            const now = Date.now();
+            remainingTime = examTime - now;
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                updateDisplay(0, 0, 0, 0);
+                statusMessage.textContent = '考试时间到！';
+                statusMessage.className = 'status-message';
+                return;
+            }
+
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            updateDisplay(days, hours, minutes, seconds);
+        }
+
+        function updateDisplay(days, hours, minutes, seconds) {
+            daysEl.textContent = String(days).padStart(2, '0');
+            hoursEl.textContent = String(hours).padStart(2, '0');
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+
+        btnSet.addEventListener('click', () => {
+            const date = examDateInput.value;
+            const hour = parseInt(examHourInput.value);
+            const minute = parseInt(examMinuteInput.value);
+
+            if (!date || isNaN(hour) || isNaN(minute)) {
+                alert('请输入有效的日期和时间');
+                return;
+            }
+
+            const [year, month, day] = date.split('-').map(Number);
+            examTime = new Date(year, month - 1, day, hour, minute, 0, 0).getTime();
+
+            const now = Date.now();
+            if (examTime <= now) {
+                alert('考试时间必须在未来');
+                return;
+            }
+
+            isPaused = false;
+            remainingTime = examTime - now;
+            
+            countdownSection.classList.add('show');
+            statusMessage.textContent = '倒计时运行中...';
+            statusMessage.className = 'status-message running';
+            
+            clearInterval(countdownInterval);
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        });
+
+        btnPause.addEventListener('click', () => {
+            isPaused = !isPaused;
+            if (isPaused) {
+                btnPause.textContent = '继续';
+                statusMessage.textContent = '倒计时已暂停';
+                statusMessage.className = 'status-message paused';
+            } else {
+                btnPause.textContent = '暂停';
+                statusMessage.textContent = '倒计时运行中...';
+                statusMessage.className = 'status-message running';
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            clearInterval(countdownInterval);
+            countdownSection.classList.remove('show');
+            examDateInput.value = '';
+            examHourInput.value = '';
+            examMinuteInput.value = '';
+            isPaused = false;
+            examTime = null;
+            updateDisplay(0, 0, 0, 0);
+        });
+    </script>
+</body>
+</html>
